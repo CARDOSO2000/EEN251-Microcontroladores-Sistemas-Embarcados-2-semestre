@@ -1,0 +1,604 @@
+[
+    {
+        "id": "43a8ae6e102b852e",
+        "type": "tab",
+        "label": "Telemetria",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "5f04fd766ffe6e96",
+        "type": "comment",
+        "z": "43a8ae6e102b852e",
+        "name": "Uplink",
+        "info": "",
+        "x": 110,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "f0c997fc317bfddd",
+        "type": "function",
+        "z": "43a8ae6e102b852e",
+        "name": "Parse JSON.data field",
+        "func": "msg.payload = msg.payload.data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 540,
+        "wires": [
+            [
+                "e50a36a3f1f223a2"
+            ]
+        ]
+    },
+    {
+        "id": "dae80b9f59d35a08",
+        "type": "json",
+        "z": "43a8ae6e102b852e",
+        "name": "Format JSON str to Obect",
+        "property": "payload",
+        "action": "",
+        "pretty": true,
+        "x": 250,
+        "y": 480,
+        "wires": [
+            [
+                "61a587df7b5e3d29",
+                "8274a85031f8d671",
+                "04f691bfcb40cd4f",
+                "f0c997fc317bfddd"
+            ]
+        ]
+    },
+    {
+        "id": "61a587df7b5e3d29",
+        "type": "function",
+        "z": "43a8ae6e102b852e",
+        "name": "TurnOn Light",
+        "func": "msg.payload = msg.payload.tonlight;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 520,
+        "wires": [
+            [
+                "c69ace5274fcce65"
+            ]
+        ]
+    },
+    {
+        "id": "c69ace5274fcce65",
+        "type": "ui_led",
+        "z": "43a8ae6e102b852e",
+        "order": 1,
+        "group": "ed143215b01f4e7e",
+        "width": "8",
+        "height": "1",
+        "label": "Turn On Light:",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#2bff00",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Turn On Light",
+        "x": 920,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "b621a7caf8c263a1",
+        "type": "ui_template",
+        "z": "43a8ae6e102b852e",
+        "group": "ed143215b01f4e7e",
+        "name": "Tensão Conversor",
+        "order": 10,
+        "width": 4,
+        "height": 4,
+        "format": " <!DOCTYPE html>\n<html>\n<body>\n<center style=\"font-size:80%\"> Tensão </center>\n<b><center ng-bind-html= \"msg.payload\" style=\"font-size:200%\"></center></b>\n<center style=\"font-size:80%\"> V </center>\n</body>\n</html> \n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 890,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d9aad0f72d933a02",
+        "type": "debug",
+        "z": "43a8ae6e102b852e",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 270,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "bf2b0f9865a3e142",
+        "type": "ui_template",
+        "z": "43a8ae6e102b852e",
+        "group": "ed143215b01f4e7e",
+        "name": "Corrente - Conversor",
+        "order": 3,
+        "width": 4,
+        "height": 4,
+        "format": " <!DOCTYPE html>\n<html>\n<body>\n<center style=\"font-size:80%\"> Corrente </center>\n<b><center ng-bind-html= \"msg.payload\" style=\"font-size:200%\"></center></b>\n<center style=\"font-size:80%\"> mA </center>\n</body>\n</html> \n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 900,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8274a85031f8d671",
+        "type": "function",
+        "z": "43a8ae6e102b852e",
+        "name": "Tensão - Conversor",
+        "func": "msg.payload = msg.payload.convtensao;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 420,
+        "wires": [
+            [
+                "b621a7caf8c263a1",
+                "6fa93aaa068d5990"
+            ]
+        ]
+    },
+    {
+        "id": "04f691bfcb40cd4f",
+        "type": "function",
+        "z": "43a8ae6e102b852e",
+        "name": "Corrente - Conversor",
+        "func": "msg.payload = msg.payload.convcorrente;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 300,
+        "wires": [
+            [
+                "bf2b0f9865a3e142",
+                "b5ffbe6d3d26db5f"
+            ]
+        ]
+    },
+    {
+        "id": "1114b78cb8110476",
+        "type": "mqtt out",
+        "z": "43a8ae6e102b852e",
+        "name": "ESP/Embarcados_RX",
+        "topic": "ESP/Embarcados_RX",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2313421a.dec7ee",
+        "x": 460,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "689755dec9ca7f25",
+        "type": "mqtt in",
+        "z": "43a8ae6e102b852e",
+        "name": "ESP/Embarcados_TX",
+        "topic": "ESP/Embarcados_TX",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "2313421a.dec7ee",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 240,
+        "y": 420,
+        "wires": [
+            [
+                "d9aad0f72d933a02",
+                "dae80b9f59d35a08"
+            ]
+        ]
+    },
+    {
+        "id": "b5ffbe6d3d26db5f",
+        "type": "ui_chart",
+        "z": "43a8ae6e102b852e",
+        "name": "Corrente - Conversor",
+        "group": "ed143215b01f4e7e",
+        "order": 2,
+        "width": 14,
+        "height": 9,
+        "label": "Corrente [mA]",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": " ",
+        "interpolate": "linear",
+        "nodata": "No data",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "300",
+        "removeOlder": 1,
+        "removeOlderPoints": "1000",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#00ff11",
+            "#ff8800",
+            "#01058e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#66e8ff"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 920,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6fa93aaa068d5990",
+        "type": "ui_chart",
+        "z": "43a8ae6e102b852e",
+        "name": "Tensão - Conversor",
+        "group": "ed143215b01f4e7e",
+        "order": 9,
+        "width": 14,
+        "height": 9,
+        "label": "Tensão (V)",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": " ",
+        "interpolate": "linear",
+        "nodata": "No data",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "60",
+        "removeOlder": 1,
+        "removeOlderPoints": "1000",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#00ff11",
+            "#ff8800",
+            "#01058e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#66e8ff"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 890,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "49a47c6ca192e592",
+        "type": "ui_switch",
+        "z": "43a8ae6e102b852e",
+        "name": "tofflight",
+        "label": "Parada de Emergência",
+        "tooltip": "",
+        "group": "0a87712882f6bb43",
+        "order": 1,
+        "width": 7,
+        "height": 2,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 120,
+        "y": 800,
+        "wires": [
+            [
+                "1114b78cb8110476"
+            ]
+        ]
+    },
+    {
+        "id": "5ae58ab207c7c7eb",
+        "type": "inject",
+        "z": "43a8ae6e102b852e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "msg.time_sample",
+        "payloadType": "global",
+        "x": 190,
+        "y": 700,
+        "wires": [
+            [
+                "e50a36a3f1f223a2"
+            ]
+        ]
+    },
+    {
+        "id": "0271a8d5aa4e45f3",
+        "type": "ui_gauge",
+        "z": "43a8ae6e102b852e",
+        "name": "",
+        "group": "a7830f55e55e279d",
+        "order": 1,
+        "width": 7,
+        "height": 4,
+        "gtype": "donut",
+        "title": "Atualizado há",
+        "label": "seg.",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "120",
+        "colors": [
+            "#008000",
+            "#ffff00",
+            "#ff0000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 620,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "e50a36a3f1f223a2",
+        "type": "function",
+        "z": "43a8ae6e102b852e",
+        "name": "Updated Since",
+        "func": "//call constructor Date() and pass to now\nvar now = new Date();\n//time_now receive current time\nvar time_now = now.getTime();\n\nif (typeof last_broker_time === 'undefined'){\n    last_broker_time = time_now;\n}\n\nif (msg.payload){\n    last_broker_time = time_now;\n    } \n\n//1. diference between times\n//2. divide per 1000 to parse miliseconds to second\n//3. divide per 60 to parse second to minute\n//4. .toFixed(0) return an int value\n//5. parseInt(\"string\",10) --> returns a decimal value based on own string value\nvar difference_between_times = parseInt(((time_now - last_broker_time)/1000).toFixed(0),10);\n\n//pass to msg.payload the desire velue to show on gauge in dashboard\nmsg.payload = difference_between_times; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 700,
+        "wires": [
+            [
+                "0271a8d5aa4e45f3"
+            ]
+        ]
+    },
+    {
+        "id": "edd56e709cac9d27",
+        "type": "ui_spacer",
+        "z": "43a8ae6e102b852e",
+        "name": "spacer",
+        "group": "ed143215b01f4e7e",
+        "order": 4,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "a4b0ec4580bc645f",
+        "type": "ui_spacer",
+        "z": "43a8ae6e102b852e",
+        "name": "spacer",
+        "group": "ed143215b01f4e7e",
+        "order": 5,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "aceb01dcd3a68474",
+        "type": "ui_spacer",
+        "z": "43a8ae6e102b852e",
+        "name": "spacer",
+        "group": "ed143215b01f4e7e",
+        "order": 6,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "3341ba6ad5c5329e",
+        "type": "ui_spacer",
+        "z": "43a8ae6e102b852e",
+        "name": "spacer",
+        "group": "ed143215b01f4e7e",
+        "order": 7,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "cd04a28e689ac234",
+        "type": "ui_spacer",
+        "z": "43a8ae6e102b852e",
+        "name": "spacer",
+        "group": "ed143215b01f4e7e",
+        "order": 8,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "7d8b1055e3e1e595",
+        "type": "ui_spacer",
+        "z": "43a8ae6e102b852e",
+        "name": "spacer",
+        "group": "ed143215b01f4e7e",
+        "order": 11,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "3df9de37d3026287",
+        "type": "ui_spacer",
+        "z": "43a8ae6e102b852e",
+        "name": "spacer",
+        "group": "ed143215b01f4e7e",
+        "order": 12,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "2c0de16478e1de30",
+        "type": "ui_spacer",
+        "z": "43a8ae6e102b852e",
+        "name": "spacer",
+        "group": "ed143215b01f4e7e",
+        "order": 13,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "a65695ab5db907ec",
+        "type": "ui_spacer",
+        "z": "43a8ae6e102b852e",
+        "name": "spacer",
+        "group": "ed143215b01f4e7e",
+        "order": 14,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "a773ab1ae1ea1ff1",
+        "type": "ui_spacer",
+        "z": "43a8ae6e102b852e",
+        "name": "spacer",
+        "group": "ed143215b01f4e7e",
+        "order": 15,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "ed143215b01f4e7e",
+        "type": "ui_group",
+        "name": "Equipamentos",
+        "tab": "f9847c5f5ca982c7",
+        "order": 2,
+        "disp": true,
+        "width": "18",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2313421a.dec7ee",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "baja.maua.br",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "0a87712882f6bb43",
+        "type": "ui_group",
+        "name": "Interação",
+        "tab": "f9847c5f5ca982c7",
+        "order": 2,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a7830f55e55e279d",
+        "type": "ui_group",
+        "name": "Resultados",
+        "tab": "f9847c5f5ca982c7",
+        "order": 3,
+        "disp": true,
+        "width": 7,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f9847c5f5ca982c7",
+        "type": "ui_tab",
+        "name": "Dash",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
